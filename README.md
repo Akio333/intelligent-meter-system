@@ -1,5 +1,4 @@
-Intelligent Meter System
-[![Build Status]
+[![N|Solid]Intelligent Meter System
 
 Developed by:\
 Suyog Mule\
