@@ -1,8 +1,7 @@
 <?php
 session_start();
 require "vendor/autoload.php";
- // $cid=$_SESSION["userid"];
- $cid = 41;
+$cid=$_SESSION["userid"];
   $con = new MongoDB\Client("mongodb://localhost:27017");
     if($con){
       $db = $con -> IMS;

@@ -1,8 +1,8 @@
 <?php
-//session_start();
+session_start();
 require "vendor/autoload.php";
 if(isset($_POST['username']) && isset($_POST['password'])){
-    $username = ($_POST['username']);
+    $username = (int)($_POST['username']);
     $password = ($_POST['password']);
     $pass_hash = md5($password);
     
@@ -21,9 +21,9 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         $collection = $db -> consumer;
         $qry = ["Consumer_Id" => $username, "password" => $pass_hash];
         $result = $collection -> findOne($qry);
-        if(!empty($result)){
-            //$cid = $result['Consumer_Id'];
-            //$_SESSION["userid"] = $cid; 
+        if($result){
+            $cid = $result['Consumer_Id'];
+            $_SESSION["userid"] = $cid; 
             header('Location: dashboard.php');
         }else{
             echo "Wrong combination of username and password";
