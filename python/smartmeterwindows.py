@@ -18,18 +18,9 @@ dmpcnt = 30
 mtrreading = 0
 healthchecker = ""
 
-block = "10"
-subarea = "53"
-mainarea = "01"
-taluka = "12"
-dist = "22"
-state = "04"
-country = "91"
-meterid = block + subarea + mainarea + taluka + dist + state + country
-
-#connurl = ''
-
-
+area =  input("Enter Your Area Code   :  01:Eastern\t02:Western\t03:Northern \t04:Southern   ")
+usage = input("Enter Consumption Type :  01:Rural  \t02:Urben  \t03:Industrial ...........    ")
+meterid = str(12)+area+usage+str(random.randint(1110,6666))
 def getElec(e):
     global v
     global i
@@ -136,4 +127,4 @@ while True:
     else:
         healthchecker="Connected"
         k=0
-    time.sleep(0.001)
+    time.sleep(10)
