@@ -1,6 +1,7 @@
 import datetime
 import os
 import platform
+import json
 import random
 import time
 import urllib
@@ -78,6 +79,8 @@ def mongoUpdate():
         healthchecker="Connected"
         k=0
         
+with open('datalog.json','w') as outfile:
+    json.dump(datalog,outfile)
 
 
 def disOnMeter():
