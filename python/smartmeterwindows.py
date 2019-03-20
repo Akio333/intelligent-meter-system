@@ -85,7 +85,7 @@ def disOnMeter():
     os.system('cls')
     print("=====================================================")
     print("=====================================================")
-    print("\t ========= Bharat Electricity Board =========       ")
+    print("\t ============ Bharat Electricity Board =========       ")
     print("====================================================")
     print("\t Meter ID: ", meterid)
     print("\t Date: ", meterdt, "\t KW: ", power / 1000)
