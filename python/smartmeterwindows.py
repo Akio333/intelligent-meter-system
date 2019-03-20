@@ -19,8 +19,9 @@ mtrreading = 0
 healthchecker = ""
 
 area =  input("Enter Your Area Code   :  01:Eastern\t02:Western\t03:Northern \t04:Southern   ")
-usage = input("Enter Consumption Type :  01:Rural  \t02:Urben  \t03:Industrial ...........    ")
-meterid = str(12)+area+usage+str(random.randint(1110,6666))
+usage = input("Enter Consumption Type :  01:Rural  \t02:Urben  \t03:Industrial ...........       ")
+meterid_ = str(12)+area+usage+str(random.randint(1110,6666))
+meterid = int(meterid_)
 def getElec(e):
     global v
     global i

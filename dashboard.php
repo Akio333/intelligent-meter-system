@@ -171,12 +171,12 @@ $cid=$_SESSION["userid"];
                       <div class="square">
                           <div class="square">
                               <div class="panel panel-default height">
-                                  <div class="panel-heading">Billing Details</div>
+                                  <div class="panel-heading">Billing Details:</div>
                                   <div class="panel-body">
                                       <strong><?php echo $conn['first_name']." ".$conn['last_name']; ?></strong><br>
                                       <?php echo $conn['Address']; ?><br>
-                                      <br>
-                                      <strong><?php echo $conn['Contact_No']; ?></strong><br>
+                                      Contact Number:</strong>
+                                      <?php echo $conn['Contact_No']; ?><br>
                                   </div>
                               </div>
                           </div>

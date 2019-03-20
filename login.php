@@ -2,7 +2,7 @@
 session_start();
 require "vendor/autoload.php";
 if(isset($_POST['username']) && isset($_POST['password'])){
-    $username = (int)($_POST['username']);
+    $username = ($_POST['username']);
     $password = ($_POST['password']);
     $pass_hash = md5($password);
     
