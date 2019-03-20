@@ -6,9 +6,9 @@ var specialElementHandlers = {
 };
 
 $('#cmd').click(function () {
-    doc.fromHTML($('#content').html(), 15, 15, {
+    doc.fromHTML($('#panel1003').html(), 15, 15, {
         'width': 170,
             'elementHandlers': specialElementHandlers
     });
-    doc.save('sample-file.pdf');
+    doc.save('bill.pdf');
 });

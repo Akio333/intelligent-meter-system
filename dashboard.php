@@ -239,9 +239,14 @@ $cid=$_SESSION["userid"];
                   </div>
               </div>
           </div>
-      
+          
       </div>
       <!--/.Panel 3-->
+      <div class="container-center">
+						<button class="login100-form-btn" id="cmd">
+							Download Bill
+						</button>
+					</div>
     </div>
 
   </div>
@@ -251,10 +256,48 @@ $cid=$_SESSION["userid"];
 <!-- Card MeterUnits-->
 
     <!-- SCRIPTS -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type='text/javascript' src="js/jspdf.debug.js"></script>
+<script>
+$(document).ready(function() {
+$('#cmd').click(function () {
+var pdf = new jsPDF('p', 'pt', 'letter')
+, source = $('#panel1003')[0]
+
+}
+
+margins = {
+    top: 60,
+    bottom: 60,
+    left: 40,
+    width: 522
+  };
+  // all coords and widths are in jsPDF instance's declared units
+  // 'inches' in this case
+pdf.fromHTML(
+    source // HTML string or DOM elem ref.
+    , margins.left // x coord
+    , margins.top // y coord
+    , {
+        'width': margins.width // max width of content on PDF
+        , 'elementHandlers': specialElementHandlers
+    },
+    function (dispose) {
+      // dispose: object with X, Y of the last line add to the PDF
+      //          this allow the insertion of new lines after html
+        pdf.save('Downloaded.pdf');
+      },
+    margins
+  )
+});
+
+    });
+</script>
     
 
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/pdf.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
