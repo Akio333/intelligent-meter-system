@@ -1,6 +1,7 @@
 import datetime
 import os
 import platform
+import json
 import random
 import time
 import urllib
@@ -8,6 +9,14 @@ import requests
 from urllib.request import urlopen
 from pprint import pprint
 from pymongo import MongoClient
+import signal
+
+def Exit_gracefully(signal, frame):
+    x=input("You really wanna quit ?? [y/n] : ")
+    if x=="y":
+        jdump()
+        exit(0)
+
 
 v = 230
 i = 0
@@ -17,6 +26,8 @@ pwrarray = []
 dmpcnt = 30  
 mtrreading = 0
 healthchecker = ""
+data = {}
+data['Meter'] = [] 
 
 area =  input("Enter Your Area Code   :  01:Eastern\t02:Western\t03:Northern \t04:Southern   ")
 usage = input("Enter Consumption Type :  01:Rural  \t02:Urben  \t03:Industrial ...........       ")
@@ -93,6 +104,19 @@ def disOnMeter():
     print("\t Health: ", healthchecker)
     print("=====================================================")
     print("=====================================================")
+    
+'''Akio jdump'''
+def jdump():
+    with open('dumpdata.json', 'w') as outfile:  
+        json.dump(data, outfile)
+
+def arrupdt():
+    data['Meter'].append({  
+    'Meter_Id': meterid,
+    'Date': meterdt,
+    'Reading':  mtrreading,
+    'Health' :healthchecker
+    })
 
 loopcnt = 0
 while True:
@@ -123,9 +147,11 @@ while True:
     
     disOnMeter()
     mongoUpdate()
+    arrupdt()
     if k == 0:
         healthchecker="Database Connection Error"
     else:
         healthchecker="Connected"
         k=0
-    time.sleep(10)
+    time.sleep(2)
+    signal.signal(signal.SIGINT, Exit_gracefully)
