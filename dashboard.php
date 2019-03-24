@@ -1,6 +1,9 @@
 <?php
 session_start();
 require "vendor/autoload.php";
+$month = date('m');
+
+$mread;
 $cid=$_SESSION["userid"];
   $con = new MongoDB\Client("mongodb://localhost:27017");
     if($con){
@@ -21,7 +24,74 @@ $cid=$_SESSION["userid"];
       $qry3 = ["region_id" => $conn['region_id']];
       $region   = $regg -> findOne($qry3);
 
-      $ucost = 7 * $mtr['Reading'];
+      switch ($month) {
+        case 1:
+           $mread=$mtr['JAN'];
+           $label=["Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan"];
+           $data=[$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN']];
+          break;
+          case 2:
+           $mread=$mtr['FEB'];
+           $label=["Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb"];
+           $data=[$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB']];
+          break;
+          case 3:
+           $mread=$mtr['MAR'];
+           $label=array("Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar");
+           $data=array($mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR']);
+          break;
+          case 4:
+           $mread=$mtr['APR'];
+           $label=array("May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr");
+           $data=array($mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR']);
+          break;
+          case 5:
+           $mread=$mtr['MAY'];
+           $label=["Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May"];
+           $data=[$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY']];
+          break;
+          case 6:
+           $mread=$mtr['JUN'];
+           $label=["Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun"];
+           $data=[$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN']];
+          break;
+          case 7:
+           $mread=$mtr['JUL'];
+           $label=["Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul"];
+           $data=[$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL']];
+          break;
+          case 8:
+           $mread=$mtr['AUG'];
+           $label=["Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"];
+           $data=[$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG']];
+          break;
+          case 9:
+           $mread=$mtr['SEP'];
+           $label=["Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+           $data=[$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP']];
+          break;
+          case 10:
+           $mread=$mtr['OCT'];
+           $label=["Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct"];
+           $data=[$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT']];
+          break;
+          case 11:
+           $mread=$mtr['NOV'];
+           $label=["Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov"];
+           $data=[$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV']];
+          break;
+          case 12:
+           $mread=$mtr['DEC'];
+           $label=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+           $data=[$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC']];
+          break;
+        
+        default:
+         
+          break;
+      }
+    
+      $ucost = 7 * $mread;
       $regionCut = $ucost * ( $region['Unit_rate'] / 100 );
       $totla = 120 + $ucost + $regionCut;
     }
@@ -124,7 +194,7 @@ $cid=$_SESSION["userid"];
       else{echo "Offline";}
      ?></p>
     <div class="d-flex justify-content-between">
-      <p class="display-4 align-self-end"><?php echo $mtr['Reading']; ?></p>
+      <p class="display-4 align-self-end"><?php echo $mread; ?></p>
       <p class="align-self-end pb-2"></p>
     </div>
 
@@ -155,7 +225,78 @@ $cid=$_SESSION["userid"];
 
       <!--Panel 2-->
       <div class="tab-pane fade" id="panel1002" role="tabpanel">
-      
+        <div class="table-responsive">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                 <td><strong>Month</strong></td>
+                 <td class="text-center"><strong>Units Consumed</strong></td>
+                 <td class="text-center"><strong>Bill Amount</strong></td>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>January</td>
+              <td class="text-center"><?php echo $mtr['JAN']?></td>
+              <td class="text-center"><?php echo (7*$mtr['JAN'])+(7*$mtr['JAN'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>February</td>
+              <td class="text-center"><?php echo $mtr['FEB']?></td>
+              <td class="text-center"><?php echo (7*$mtr['FEB'])+(7*$mtr['FEB'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>March</td>
+              <td class="text-center"><?php echo $mtr['MAR']?></td>
+              <td class="text-center"><?php echo (7*$mtr['MAR'])+(7*$mtr['MAR'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>April</td>
+              <td class="text-center"><?php echo $mtr['APR']?></td>
+              <td class="text-center"><?php echo (7*$mtr['APR'])+(7*$mtr['APR'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>May</td>
+              <td class="text-center"><?php echo $mtr['MAY']?></td>
+              <td class="text-center"><?php echo (7*$mtr['MAY'])+(7*$mtr['MAY'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>June</td>
+              <td class="text-center"><?php echo $mtr['JUN']?></td>
+              <td class="text-center"><?php echo (7*$mtr['JUN'])+(7*$mtr['JUN'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>July</td>
+              <td class="text-center"><?php echo $mtr['JUL']?></td>
+              <td class="text-center"><?php echo (7*$mtr['JUL'])+(7*$mtr['JUL'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>August</td>
+              <td class="text-center"><?php echo $mtr['AUG']?></td>
+              <td class="text-center"><?php echo (7*$mtr['AUG'])+(7*$mtr['AUG'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>September</td>
+              <td class="text-center"><?php echo $mtr['SEP']?></td>
+              <td class="text-center"><?php echo (7*$mtr['SEP'])+(7*$mtr['SEP'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>October</td>
+              <td class="text-center"><?php echo $mtr['OCT']?></td>
+              <td class="text-center"><?php echo (7*$mtr['OCT'])+(7*$mtr['OCT'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>November</td>
+              <td class="text-center"><?php echo $mtr['NOV']?></td>
+              <td class="text-center"><?php echo (7*$mtr['NOV'])+(7*$mtr['NOV'])*( $region['Unit_rate'] / 100 )+120 ?></td>
+            </tr>
+            <tr>
+              <td>December</td>
+              <td class="text-center"><?php echo $mtr['DEC']?></td>
+              <td class="text-center"><?php echo ((7*$mtr['DEC'])+(7*$mtr['DEC'])*( $region['Unit_rate'] / 100 )+120) ?></td>
+            </tr>
+        </table>
+        </div>
       </div>
       <!--/.Panel 2-->
 
@@ -210,7 +351,7 @@ $cid=$_SESSION["userid"];
                                           <tr>
                                               <td>Units Consumed</td>
                                               <td class="text-center">7</td>
-                                              <td class="text-center"><?php echo $mtr['Reading']; ?></td>
+                                              <td class="text-center"><?php echo $mread; ?></td>
                                               <td class="text-right"><?php echo $ucost; ?></td>
                                           </tr>
                                           <tr>
@@ -312,13 +453,13 @@ pdf.fromHTML(
   var myLineChart = new Chart(ctxL, {
   type: 'line',
   data: {
-    labels: ["Jan","Feb","Mar","Apr","May","Jun"],
+    labels: <?php echo $label ?>,
     datasets: [
       {
         fill: false,
         borderColor: "#673ab7",
         pointBackgroundColor: "#673ab7",
-        data: [60,70,64,56,78,54]
+        data: <?php echo $data ?>
       }
     ]
   },

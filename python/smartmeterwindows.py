@@ -90,7 +90,7 @@ def mongoUpdate():
         k=0
         
 with open('datalog.json','w') as outfile:
-    json.dump(datalog,outfile)
+    json.dump(data,outfile)
 
 
 def disOnMeter():
