@@ -37,13 +37,13 @@ $cid=$_SESSION["userid"];
           break;
           case 3:
            $mread=$mtr['MAR'];
-           $label=array("Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar");
-           $data=array($mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR']);
+           $label=["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"];
+           $data=[$mtr['APR'],$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR']];
           break;
           case 4:
            $mread=$mtr['APR'];
-           $label=array("May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr");
-           $data=array($mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR']);
+           $label=["May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr"];
+           $data= [$mtr['MAY'],$mtr['JUN'],$mtr['JUL'],$mtr['AUG'],$mtr['SEP'],$mtr['OCT'],$mtr['NOV'],$mtr['DEC'],$mtr['JAN'],$mtr['FEB'],$mtr['MAR'],$mtr['APR']];
           break;
           case 5:
            $mread=$mtr['MAY'];
@@ -220,7 +220,7 @@ $cid=$_SESSION["userid"];
     <div class="tab-content rounded-bottom">
       <!--Panel 1-->
       <div class="tab-pane fade in show active" id="panel1001" role="tabpanel">
-        <canvas id="lineChart" height="250px"></canvas>
+        <canvas id="lineChart" height="600px" width="600px"></canvas>
       </div>
       <!--/.Panel 1-->
 
@@ -303,7 +303,8 @@ $cid=$_SESSION["userid"];
 
       <!--Panel 3-->
       <div class="tab-pane fade" id="panel1003" role="tabpanel">
-          <div class="container">
+        <div>
+          <div class="container"  id="bill">
               <div class="row">
                   <div class="col-xs-12">
                       <div class="text-center">
@@ -313,7 +314,7 @@ $cid=$_SESSION["userid"];
                       <div class="square">
                           <div class="square">
                               <div class="panel panel-default height">
-                                  <div class="panel-heading">Billing Details:</div>
+                                  <div class="panel-heading">Billing Details:<br></div>
                                   <div class="panel-body">
                                       <strong><?php echo $conn['first_name']." ".$conn['last_name']; ?></strong><br>
                                       <?php echo $conn['Address']; ?><br>
@@ -381,6 +382,7 @@ $cid=$_SESSION["userid"];
                   </div>
               </div>
           </div>
+        </div>
           <div class="container-center" style="text-align:center;">
           <br>
 						<button class="button blue" id="cmd" style="text-align:center;">
@@ -457,13 +459,13 @@ pdf.fromHTML(
   var myLineChart = new Chart(ctxL, {
   type: 'line',
   data: {
-    labels: <?php echo $label ?>,
+    labels: <?php echo json_encode($label); ?>,
     datasets: [
       {
         fill: false,
         borderColor: "#673ab7",
         pointBackgroundColor: "#673ab7",
-        data: <?php echo $data ?>
+        data: <?php echo json_encode($data); ?>
       }
     ]
   },
@@ -478,8 +480,8 @@ pdf.fromHTML(
           display: false,
         },
         ticks: {
-          padding: 15,
-          height: 30
+          padding: 20,
+          height: 120
         }
       }],
       yAxes: [{
@@ -487,10 +489,10 @@ pdf.fromHTML(
           drawBorder: false
         },
         ticks: {
-            maxTicksLimit: 5,
+            maxTicksLimit: 20,
             padding: 15,
-            min: 20,
-            max: 100
+            min:120,
+            max: 500
           }
       }]
     }
