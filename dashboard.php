@@ -116,6 +116,7 @@ $cid=$_SESSION["userid"];
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/button.css" rel="stylesheet">
     <style type="text/css">
 
       html,
@@ -380,14 +381,17 @@ $cid=$_SESSION["userid"];
                   </div>
               </div>
           </div>
-          
+          <div class="container-center" style="text-align:center;">
+          <br>
+						<button class="button blue" id="cmd" style="text-align:center;">
+							&nbsp;&nbsp;<b>Download Bill</b>&nbsp;&nbsp;
+            </button>
+          <br>
+          <br>
+					</div>
       </div>
       <!--/.Panel 3-->
-      <div class="container-center">
-						<button class="login100-form-btn" id="cmd">
-							Download Bill
-						</button>
-					</div>
+      
     </div>
 
   </div>
@@ -494,5 +498,4 @@ pdf.fromHTML(
 });
   </script>
 </body>
-
 </html>
