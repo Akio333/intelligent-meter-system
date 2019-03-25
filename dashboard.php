@@ -325,6 +325,15 @@ $cid=$_SESSION["userid"];
                           </div>
                       </div>
                   </div>
+                  <div class="col-xs-12">
+                  <div style="position:absolute;
+                              left: 75%;
+                              width:30em;
+                              height:20em;">
+                          <br><h3>From: 1-<?php echo date('m-y')?></h3>
+                          <br><h3>To: &nbsp;&nbsp;<?php echo date('t',strtotime(date('m-y')))?>-<?php echo date('m-y')?></h3>
+                      </div>
+                    </div>
               </div>
               <div class="row">
                   <div class="col-md-12">
