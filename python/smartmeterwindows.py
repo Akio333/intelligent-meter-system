@@ -1,7 +1,6 @@
 import datetime
 import os
 import platform
-import json
 import random
 import time
 import urllib
@@ -10,6 +9,8 @@ from urllib.request import urlopen
 from pprint import pprint
 from pymongo import MongoClient
 import signal
+import datetime
+
 
 def Exit_gracefully(signal, frame):
     x=input("You really wanna quit ?? [y/n] : ")
@@ -25,13 +26,25 @@ pwrarray = []
 dmpcnt = 30  
 mtrreading = 0
 healthchecker = ""
-data = {}
-data['Meter'] = [] 
-
-area =  input("Enter Your Area Code   :  01:Eastern\t02:Western\t03:Northern \t04:Southern   ")
+month = datetime.datetime.now().strftime("%m")
+'''area =  input("Enter Your Area Code   :  01:Eastern\t02:Western\t03:Northern \t04:Southern   ")
 usage = input("Enter Consumption Type :  01:Rural  \t02:Urben  \t03:Industrial ...........       ")
 meterid_ = str(12)+area+usage+str(random.randint(1110,6666))
-meterid = int(meterid_)
+meterid = int(meterid_)'''
+conid=input("Enter consumer ID :")
+client = MongoClient()
+db = client.IMS
+colcon =db.consumer
+mqry = {"Consumer_ID":conid}
+x=colcon.find(mqry)
+meterid=""
+if x!= None:
+    for doc in x:
+        meterid = doc["meter_no"]
+else:
+    print("Wrong Consumer ID")
+    exit(0)
+
 def getElec(e):
     global v
     global i
@@ -67,21 +80,18 @@ def getMtrReading():
 def getHealth():
     pass
 
-
 def mongoUpdate():
     client = MongoClient()
+    db = client.IMS
+    colmtr = db.meter
     global healthchecker
     global k
-    db = client.test
-    collection = db.testmeter
-
     post = {
-        "MeterNo":meterid,
-        "Timestamp":meterdt,
-        "Reading":mtrreading,
-        "Status":"on"
+        "meter_no":meterid,
+        month:mtrreading,
+        "Status":1
     }
-    k = collection.insert_one(post)
+    k = colmtr.insert_one(post)
     if k == 0:
         healthchecker="Database Connection Error"
     else:
@@ -94,8 +104,8 @@ def disOnMeter():
     os.system('cls')
     print("=====================================================")
     print("=====================================================")
-    print("\t ============ Bharat Electricity Board =========       ")
-    print("====================================================")
+    print("============ Bharat Electricity Board ===============")
+    print("=====================================================")
     print("\t Meter ID: ", meterid)
     print("\t Date: ", meterdt, "\t KW: ", power / 1000)
     print("\t Reading: ", mtrreading)
