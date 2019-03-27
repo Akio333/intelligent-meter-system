@@ -14,7 +14,6 @@ import signal
 def Exit_gracefully(signal, frame):
     x=input("You really wanna quit ?? [y/n] : ")
     if x=="y":
-        jdump()
         exit(0)
 
 
@@ -88,9 +87,6 @@ def mongoUpdate():
     else:
         healthchecker="Connected"
         k=0
-        
-with open('datalog.json','w') as outfile:
-    json.dump(data,outfile)
 
 
 def disOnMeter():
@@ -106,19 +102,6 @@ def disOnMeter():
     print("\t Health: ", healthchecker)
     print("=====================================================")
     print("=====================================================")
-    
-'''Akio jdump'''
-def jdump():
-    with open('dumpdata.json', 'w') as outfile:  
-        json.dump(data, outfile)
-
-def arrupdt():
-    data['Meter'].append({  
-    'Meter_Id': meterid,
-    'Date': meterdt,
-    'Reading':  mtrreading,
-    'Health' :healthchecker
-    })
 
 loopcnt = 0
 while True:
@@ -149,7 +132,6 @@ while True:
     
     disOnMeter()
     mongoUpdate()
-    arrupdt()
     if k == 0:
         healthchecker="Database Connection Error"
     else:

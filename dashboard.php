@@ -177,7 +177,7 @@ $cid=$_SESSION["userid"];
     </style>
 </head>
 
-<body>
+<body style="background: url('C:\xampp\htdocs\akio\ims_gui\img\cityline.gif');background-repeat: no-repeat;background-size: 100% 100%;">
 
 <!-- Card MeterUnits-->
 <div class="card chart-card">
