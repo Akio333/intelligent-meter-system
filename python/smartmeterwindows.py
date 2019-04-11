@@ -121,7 +121,8 @@ def mongoUpdate():
 
 def disOnMeter():
     global mtrreading
-    os.system('cls')
+    #os.system('cls')
+    os.system('clear')
     print("=====================================================")
     print("=====================================================")
     print("============ Bharat Electricity Board ===============")
@@ -164,3 +165,4 @@ while True:
     mongoUpdate()
     time.sleep(0.02)
     signal.signal(signal.SIGINT, Exit_gracefully)
+    
