@@ -13,10 +13,9 @@ import datetime
 
 
 def Exit_gracefully(signal, frame):
-    x=input("You really wanna quit ?? [y/n] : ")
+    x=input("Do you really want to quit ?? [y/n] : ")
     if x=="y":
         exit(0)
-
 
 v = 230
 i = 0
@@ -26,21 +25,48 @@ pwrarray = []
 dmpcnt = 30  
 mtrreading = 0
 healthchecker = ""
-month = datetime.datetime.now().strftime("%m")
-'''area =  input("Enter Your Area Code   :  01:Eastern\t02:Western\t03:Northern \t04:Southern   ")
-usage = input("Enter Consumption Type :  01:Rural  \t02:Urben  \t03:Industrial ...........       ")
-meterid_ = str(12)+area+usage+str(random.randint(1110,6666))
-meterid = int(meterid_)'''
+
+monthh = datetime.datetime.now().strftime("%m")
+month = int(monthh)
+mon=""
+if month == 1:
+    mon="JAN"
+elif month== 2:
+    mon="FEB"
+elif month== 3:
+    mon="MAR"
+elif month== 4:
+    mon="APR"
+elif month== 5:
+    mon="MAY"
+elif month== 6:
+    mon="JUN"
+elif month== 7:
+    mon="JUL"
+elif month== 8:
+    mon="AUG"
+elif month== 9:
+    mon="SEP"
+elif month== 10:
+    mon="OCT"
+elif month== 11:
+    mon="NOV"
+elif month== 12:
+    mon="DEC"
+else:
+    print("system date error..")
+    exit(0)
+
 conid=input("Enter consumer ID :")
-client = MongoClient()
+client = MongoClient("mongodb://localhost:27017")
 db = client.IMS
 colcon =db.consumer
-mqry = {"Consumer_ID":conid}
-x=colcon.find(mqry)
+mqry = {"Consumer_Id":conid}
+x=colcon.find_one(mqry)
 meterid=""
-if x!= None:
-    for doc in x:
-        meterid = doc["meter_no"]
+if x != None:
+    meterid = x["meter_no"]
+    healthchecker="Connected"
 else:
     print("Wrong Consumer ID")
     exit(0)
@@ -86,17 +112,11 @@ def mongoUpdate():
     colmtr = db.meter
     global healthchecker
     global k
-    post = {
-        "meter_no":meterid,
-        month:mtrreading,
-        "Status":1
-    }
-    k = colmtr.insert_one(post)
-    if k == 0:
-        healthchecker="Database Connection Error"
-    else:
-        healthchecker="Connected"
-        k=0
+    mtrd="%.2f" % round(mtrreading,2)
+    mtrread=str(mtrd)
+    chk = {"meter_no":meterid}
+    nval = {"$set":{mon:mtrread,"Status":"1"}}
+    k = colmtr.update_one(chk,nval)
 
 
 def disOnMeter():
@@ -142,10 +162,5 @@ while True:
     
     disOnMeter()
     mongoUpdate()
-    if k == 0:
-        healthchecker="Database Connection Error"
-    else:
-        healthchecker="Connected"
-        k=0
-    time.sleep(2)
+    time.sleep(0.02)
     signal.signal(signal.SIGINT, Exit_gracefully)
