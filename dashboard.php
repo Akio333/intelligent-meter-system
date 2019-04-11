@@ -2,7 +2,7 @@
 session_start();
 require "vendor/autoload.php";
 $month = date('m');
-
+if(isset($_SESSION["userid"])){
 $mread;
 $cid=$_SESSION["userid"];
   $con = new MongoDB\Client("mongodb://localhost:27017");
@@ -98,7 +98,10 @@ $cid=$_SESSION["userid"];
     else{
       print("DB connection Failed........");
     }
-
+  }
+  else{
+    header('Refresh: 0; URL = index.php');
+  }
 ?>
 
 <html lang="en">
@@ -198,7 +201,13 @@ $cid=$_SESSION["userid"];
       <p class="display-4 align-self-end"><?php echo $mread; ?></p>
       <p class="align-self-end pb-2"></p>
     </div>
-
+      <form action="logout.php">
+				<button class="button blue" style="text-align:center;position: fixed; top: 10; right: 10;" type="submit">
+					&nbsp;&nbsp;<b>Log Out</b>&nbsp;&nbsp;
+        </button>
+      </form>
+    </div>
+  </div>
   </div>
 
   <!-- Classic tabs -->
