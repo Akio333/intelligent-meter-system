@@ -2,7 +2,7 @@
    <head>
       <title>Logging Out...................</title>
    </head>
-   <body style="background-image: url('img/blyat1.gif');
+   <body style="background-image: url('img/blyat.gif');
     background-size: cover;
     background-repeat: no-repeat;">
    </body>
