@@ -1,6 +1,6 @@
 <html>
    <head>
-      <title>Logging Out...................</title>
+      <title>Logging In...................</title>
    </head>
    <body style="background-image: url('img/blyat.gif');
     background-size: cover;
