@@ -13,7 +13,7 @@ import datetime
 
 
 def Exit_gracefully(signal, frame):
-    x=input("Do you really want to quit ?? [y/n] : ")
+    x=input("Do you want to abandon the unit? [y/n] : ")
     if x=="y":
         exit(0)
 
@@ -121,8 +121,8 @@ def mongoUpdate():
 
 def disOnMeter():
     global mtrreading
-    #os.system('cls')
-    os.system('clear')
+    os.system('cls')
+    #os.system('clear')
     print("=====================================================")
     print("=====================================================")
     print("============ Bharat Electricity Board ===============")
