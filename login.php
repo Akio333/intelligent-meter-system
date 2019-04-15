@@ -1,3 +1,13 @@
+<html>
+   <head>
+      <title>Logging Out...................</title>
+   </head>
+   <body style="background-image: url('img/blyat1.gif');
+    background-size: cover;
+    background-repeat: no-repeat;">
+   </body>
+</html>
+
 <?php
 session_start();
 require "vendor/autoload.php";
@@ -24,7 +34,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         if($result){
             $cid = $result['Consumer_Id'];
             $_SESSION["userid"] = $cid; 
-            header('Location: dashboard.php');
+            header('Refresh: 5.5; URL = dashboard.php');
         }else{
             echo "Wrong combination of username and password";
         }
