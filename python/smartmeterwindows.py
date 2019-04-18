@@ -11,12 +11,6 @@ from pymongo import MongoClient
 import signal
 import datetime
 
-
-def Exit_gracefully(signal, frame):
-    x=input("Do you want to abandon the unit? [y/n] : ")
-    if x=="y":
-        exit(0)
-
 v = 230
 i = 0
 f = 50
@@ -71,6 +65,14 @@ else:
     print("Wrong Consumer ID")
     exit(0)
 
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+def Exit_gracefully(signal, frame):
+    x=input("Do you want to abandon the unit? [y/n] : ")
+    if x=="y":
+        exit(0)
+
 def getElec(e):
     global v
     global i
@@ -121,8 +123,7 @@ def mongoUpdate():
 
 def disOnMeter():
     global mtrreading
-    os.system('cls')
-    #os.system('clear')
+    cls()
     print("=====================================================")
     print("=====================================================")
     print("============ Bharat Electricity Board ===============")
