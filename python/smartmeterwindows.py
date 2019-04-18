@@ -149,18 +149,6 @@ while True:
         pwrarray = []
     else:
         dmpme = 'no'
-
-    postvalues = {
-        'mid': meterid,
-        'dt': meterdt,
-        'p': power,
-        'v': v,
-        'i': i,
-        'fw': meterfw,
-        'mr': mtrreading,
-        'dmp': dmpme
-    }
-    postdata = urllib.parse.urlencode(postvalues)
     
     disOnMeter()
     mongoUpdate()
