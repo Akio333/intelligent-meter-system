@@ -1,6 +1,6 @@
 # Intelligent Meter System
 
-### Developed by:\
+### Developed by
 Suyog Mule\
 Sumukh Maduskar\
 Pankaj Masaye
