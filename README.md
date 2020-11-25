@@ -1,10 +1,11 @@
-Intelligent Meter System
+# Intelligent Meter System
 
-Developed by:\
+### Developed by:\
 Suyog Mule\
 Sumukh Maduskar\
 Pankaj Masaye
 
+## Description
   The intelligent electricity meter is a smart reading body which monitors, calculates
 and stores the energy values and customer details. First, it monitors the energy values
 consumed by the customer/utilizer to analyze the gross usage on daily as well as monthly
